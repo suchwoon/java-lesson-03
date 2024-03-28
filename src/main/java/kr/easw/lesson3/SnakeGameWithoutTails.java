@@ -49,7 +49,38 @@ public class SnakeGameWithoutTails {
      * 만약 사용자의 입력이 종료(0)였다면, false값을 반환하여 게임을 종료해야 합니다.
      */
     private static boolean nextDirection(String keyword) {
-        throw new RuntimeException("이 코드 라인을 지우고, 이곳에서 작성하십시오.");
+        int newX = location.getX();
+        int newY = location.getY();
+    
+        switch (keyword) {
+            case "r":
+                newY++;
+                break;
+            case "l":
+                newY--;
+                break;
+            case "u":
+                newX--;
+                break;
+            case "d":
+                newX++;
+                break;
+            case "0":
+                return false;
+            default:
+                System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
+                return true;
+        }
+    
+        if (newX >= 0 && newX < BOARD_SIZE && newY >= 0 && newY < BOARD_SIZE) {
+            location = new SnakeLocation(newX, newY);
+            if (board[newX][newY] == 2) {
+                score++;
+                board[newX][newY] = 0;
+            }
+        }
+    
+        return true;
     }
 
     private static void printBoard() {
